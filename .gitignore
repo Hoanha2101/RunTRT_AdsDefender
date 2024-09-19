@@ -1,0 +1,5 @@
+models/
+videos/
+yolov8s-seg.engine
+yolov8s-seg.onnx
+yolov8s-seg.pt
