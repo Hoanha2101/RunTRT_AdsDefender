@@ -9,7 +9,6 @@ import time
 from numpy import dot
 from numpy.linalg import norm
 
-
 input_names = ['images']
 output_names = ['output']
 batch = 1
@@ -73,11 +72,11 @@ while True:
                 for i in VEC_refer:
                     cos_sim = dot(i, out_infer_trt)/(norm(i)*norm(out_infer_trt))
                     List_sim.append(cos_sim)
-                    
+                
                 if max(List_sim) >= THRESHOLD:
                     points = np.int32([mask])
-                    points = np.array(mask, dtype=np.int32).reshape((-1, 1, 2))
-                    cv2.fillPoly(frame, points, (255,255,255))
+                    if len(mask) > 0:
+                        cv2.fillPoly(frame, points, (125,100,125))
                           
     elapsed_time = time.time() - s
     if elapsed_time > 0:
@@ -87,7 +86,7 @@ while True:
         continue
     
     cv2.putText(frame, str(round(fps,5)), (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 
-                   1, (255, 0, 0), 5, cv2.LINE_AA)
+                   2, (255, 0, 0), 3, cv2.LINE_AA)
     frame = cv2.resize(frame, (frame.shape[1] // 2, frame.shape[0] // 2))
     
     cv2.imshow("Video", frame)
